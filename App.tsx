@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Loader from "./src/screens/Loader";
-import AnimalAvatar from "./src/components/AnimalAvatar";
 
 export default function App() {
   //Création d'un état pour savoir si on affiche le loader ou autre page
