@@ -1,29 +1,35 @@
-import type { AnimalState, Remedy } from "../src/types/game";
+import type { AnimalState,Remedy } from "../src/types/game";
 
 export function applyRemedy(
-	currentState: AnimalState,
+	currentEnergy: number,
 	remedy: Remedy,
-): AnimalState {
-	// 1. Si on donne un café à un animal normal, il devient hyperactif
-	if (currentState === "normal" && remedy === "coffee") {
-		return "coffee";
-	}
+): number {
+    if (remedy === "coffee") {
+        return currentEnergy - 3; 
+    }
+    if (remedy === "herbaltea") {
+        return currentEnergy + 3;
+    }
+    return currentEnergy;
+}
 
-	// 2. Si on donne encore un café à un animal déjà hyperactif, il meurt 💀
-	if (currentState === "coffee" && remedy === "coffee") {
-		return "dead";
-	}
+export function getAnimalState(energy: number): AnimalState {
+    
+    // 1. Les cas extrêmes (Game Over)
+    if (energy <= 0 || energy >= 100) {
+        return "dead";
+    }
 
-	// 3. Si on donne une tisane à un animal hyperactif, il se calme
-	if (currentState === "coffee" && remedy === "herbaltea") {
-		return "normal"
-	}
-    if (currentState === "stone" && remedy === "coffee") {
-					return "normal";
-				}
+    // 2. Zone de la tisane (trop relaxé)
+    if (energy > 75) {
+        return "stone";
+    }
 
-    if (currentState === "normal" &&	remedy === "herbaltea") 				{
-					return "stone";
-				}
-	return currentState;
+    // 3. Zone du café (trop excité)
+    if (energy < 25) {
+        return "coffee";
+    }
+
+    // 4. Le juste milieu
+    return "normal";
 }
