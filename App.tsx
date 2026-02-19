@@ -1,12 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground } from "react-native";
 import { useState } from "react";
 import GameOverScreen from "./src/screens/GameOverScreen";
 import GameScreen from "./src/screens/GameScreen";
 import WinnerScreen from "./src/screens/WinnerScreen";
 import Loader from "./src/screens/Loader";
 import SelectionScreen from "./src/screens/SelectionScreen";
-import { AnimalType } from "./src/types/game";
+import type { AnimalType } from "./src/types/game";
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
