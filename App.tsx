@@ -18,8 +18,11 @@ export default function App() {
         // Remplacer ce bloc ensuite
         // par le SelectionScreen
         <View style={styles.gameContent}>
-          <Text>CoffeeGotchi</Text>
-        </View>
+      <Text>CoffeeGotchi</Text>
+      <GameOverScreen reason="tea" />
+      </View>
+          
+      
       )}
     </View>
   );
