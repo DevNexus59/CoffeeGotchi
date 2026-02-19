@@ -1,23 +1,24 @@
-import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { useState } from "react";
 import GameOverScreen from "./src/screens/GameOverScreen";
 import GameScreen from "./src/screens/GameScreen";
 import WinnerScreen from "./src/screens/WinnerScreen";
 import Loader from "./src/screens/Loader";
-import AnimalAvatar from "./src/components/AnimalAvatar";
+import SelectionScreen from "./src/screens/SelectionScreen";
+import { AnimalType } from "./src/types/game";
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
-	// Attention à cette ligne 👇
+	const [selectedAnimal, setSelectedAnimal] = useState<AnimalType | null>(null);
 	const [gameState, setGameState] = useState<
 		"win" | "coffee_over" | "tea_over" | "playing"
 	>("playing");
 
-	// 1. On regroupe toute la logique d'affichage ici
+	// 2. La logique pour les écrans de jeu
 	const renderGameContent = () => {
 		if (gameState === "playing") {
-			return <GameScreen onGameOver={setGameState} />;
+			return <GameScreen animal={selectedAnimal} onGameOver={setGameState} />;
 		}
 		if (gameState === "win") {
 			return <WinnerScreen reason="win" />;
@@ -31,31 +32,29 @@ export default function App() {
 	};
 
 	return (
-		<View style={styles.container}>
+		<ImageBackground
+			source={require("./src/assets/background.jpg")}
+			style={styles.container}
+			resizeMode="cover"
+		>
 			<StatusBar style="auto" />
 			{isLoading ? (
 				<Loader onFinished={() => setIsLoading(false)} />
+			) : selectedAnimal === null ? (
+				<SelectionScreen onSelect={setSelectedAnimal} />
 			) : (
 				renderGameContent()
 			)}
-		</View>
+		</ImageBackground>
 	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  gameContent: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFF5E1",
-  },
+	container: {
+		flex: 1,
+		width: "100%",
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 });

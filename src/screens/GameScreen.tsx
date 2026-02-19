@@ -5,12 +5,14 @@ import StatGauge from "../components/StatGauge";
 import { useAudioPlayer } from "expo-audio";
 import AnimalAvatar from "../components/AnimalAvatar";
 import { getAnimalState } from "../../utils/gameLogic";
+import type { AnimalType } from "../types/game";
 
-export default function GameScreen({
-	onGameOver,
-}: {
-	onGameOver: (result: "win" | "coffee_over" | "tea_over") => void;
-}) {
+interface GameScreenProps {
+    animal: AnimalType;
+    onGameOver: (reason: "win" | "coffee_over" | "tea_over") => void;
+}
+
+export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 	const player = useAudioPlayer(require("../assets/sounds/game_over.mp3"));
 	// 1. Nos états
 	const [energy, setEnergy] = useState<number>(50);
@@ -46,8 +48,8 @@ export default function GameScreen({
 			source={require("../assets/backgrounds/background0.png")}
 			style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
 		>
-			<StatGauge label="Énergie" value={energy} max={100} min={0} />
-			<AnimalAvatar animal="tiger" state={getAnimalState(energy)} />
+			<StatGauge value={energy}/>
+			<AnimalAvatar animal={animal} state={getAnimalState(energy)} />
 			<RemedyButtons energy={energy} setEnergy={setEnergy} />
 		</ImageBackground>
 	);
