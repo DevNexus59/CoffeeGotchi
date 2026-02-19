@@ -20,6 +20,7 @@ export default function App() {
         // par le SelectionScreen
         <View style={styles.gameContent}>
       <Text>CoffeeGotchi</Text>
+      <GameOverScreen reason="tea" />
       </View>
       )}
     </View>
