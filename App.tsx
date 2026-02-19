@@ -24,6 +24,8 @@ export default function App() {
                 // TODO: remplacer par <GameScreen animal={selectedAnimal} onBack={() => setSelectedAnimal(null)} />
                 <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
                     <Text style={{ color: "#fff", fontSize: 20 }}>GameScreen — animal: {selectedAnimal}</Text>
+                      <Text>CoffeeGotchi</Text>
+                    <GameOverScreen reason="tea" />
                 </View>
             )}
         </ImageBackground>
