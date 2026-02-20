@@ -27,9 +27,9 @@ export default function App() {
 						<GameScreen animal={selectedAnimal} onGameOver={setGameState} />
 					);
 				}
-				// if (gameState === "win") {
-				// 	return <WinnerScreen reason="win" />;
-				// }
+				if (gameState === "win") {
+					return <WinnerScreen state={setGameState} animal={selectedAnimal} />;
+				}
 				if (gameState === "coffee_over") {
 					return <GameOverScreen state={setGameState} reason="coffee_over" />;
 				}
