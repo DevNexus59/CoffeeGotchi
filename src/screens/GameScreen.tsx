@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { ImageBackground } from "react-native";
-import RemedyButtons from "../components/RemedyButtons";
 import StatGauge from "../components/StatGauge";
 import { useAudioPlayer } from "expo-audio";
 import AnimalAvatar from "../components/AnimalAvatar";
 import { getAnimalState } from "../../utils/gameLogic";
 import type { AnimalType } from "../types/game";
+import "../assets/images/backgrounds/background0.jpg"
 
 interface GameScreenProps {
     animal: AnimalType;
@@ -45,12 +45,11 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 	}, [player.play]);
 	return (
 		<ImageBackground
-			source={require("../assets/backgrounds/background0.png")}
+			source={require("../assets/images/backgrounds/background0.jpg")}
 			style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
 		>
-			<StatGauge value={energy}/>
+			<StatGauge value={energy} />
 			<AnimalAvatar animal={animal} state={getAnimalState(energy)} />
 			<RemedyButtons energy={energy} setEnergy={setEnergy} />
 		</ImageBackground>
 	);
-}
