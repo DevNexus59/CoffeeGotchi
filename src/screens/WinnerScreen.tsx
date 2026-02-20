@@ -3,6 +3,11 @@ import { StyleSheet, ImageBackground, Image, View, TouchableOpacity, Text } from
 import { useAudioPlayer } from "expo-audio";
 import { useEffect } from "react";
 
+interface WinnerScreenProps {
+    state: React.Dispatch<React.SetStateAction<"win" | "coffee_over" | "tea_over" | "playing">>;
+    animal: string;
+}
+
 const ANIMAL_IMAGES: { [key: string]: any } = {
   chicken: require("../assets/images/animals/chicken_win.png"),
   elephant: require("../assets/images/animals/elephant_win.png"),
@@ -12,7 +17,7 @@ const ANIMAL_IMAGES: { [key: string]: any } = {
   turtle: require("../assets/images/animals/turtle_win.png"),
 };
 
-const WinnerScreen = ({ animal }: { animal: string}) => {
+const WinnerScreen = ({ state, animal }: WinnerScreenProps) => {
   const imageSource = ANIMAL_IMAGES[animal];
 
    
@@ -28,6 +33,7 @@ const WinnerScreen = ({ animal }: { animal: string}) => {
   const handleRetry = () => {
     clickRetry.play();
       // Tu pourras ajouter ici la logique pour recommencer le jeu
+    state("playing");  
   };  
 
   return (
