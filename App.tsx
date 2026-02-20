@@ -1,47 +1,59 @@
-import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, ImageBackground } from "react-native";
+import { useState } from "react";
 import GameOverScreen from "./src/screens/GameOverScreen";
+import GameScreen from "./src/screens/GameScreen";
 import Loader from "./src/screens/Loader";
-import AnimalAvatar from "./src/components/AnimalAvatar";
+import SelectionScreen from "./src/screens/SelectionScreen";
+import type { AnimalType } from "./src/types/game";
 
 export default function App() {
-  //Création d'un état pour savoir si on affiche le loader ou autre page
-  const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
+	const [selectedAnimal, setSelectedAnimal] = useState<AnimalType | null>(null);
+	const [gameState, setGameState] = useState<
+		"win" | "coffee_over" | "tea_over" | "playing"
+	>("playing");
 
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      {isLoading ? (
-        <Loader onFinished={() => setIsLoading(false)} />
-      ) : (
-        // Remplacer ce bloc ensuite
-        // par le SelectionScreen
-        <View style={styles.gameContent}>
-      <Text>CoffeeGotchi</Text>
-      <GameOverScreen reason="tea" />
-      </View>
-          
-      
-      )}
-    </View>
-  );
+	// 2. La logique pour les écrans de jeu
+	const renderGameContent = () => {
+		if (gameState === "playing") {
+			return <GameScreen animal={selectedAnimal} onGameOver={setGameState} />;
+		}
+		if (gameState === "win") {
+			return <WinnerScreen reason="win" />;
+		}
+		if (gameState === "coffee_over") {
+			return <GameOverScreen reason="coffee_over" />;
+		}
+		if (gameState === "tea_over") {
+			return <GameOverScreen reason="tea_over" />;
+		}
+	};
+
+	return (
+		<ImageBackground
+			source={require("./src/assets/background.jpg")}
+			style={styles.container}
+			resizeMode="cover"
+		>
+			<StatusBar style="auto" />
+			{isLoading ? (
+				<Loader onFinished={() => setIsLoading(false)} />
+			) : selectedAnimal === null ? (
+				<SelectionScreen onSelect={setSelectedAnimal} />
+			) : (
+				renderGameContent()
+			)}
+		</ImageBackground>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  gameContent: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFF5E1",
-  },
+	container: {
+		flex: 1,
+		width: "100%",
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 });
