@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { ImageBackground } from "react-native";
+import { ImageBackground, View } from "react-native";
 import StatGauge from "../components/StatGauge";
 import { useAudioPlayer } from "expo-audio";
 import AnimalAvatar from "../components/AnimalAvatar";
-import { getAnimalState } from "../../utils/gameLogic";
+import { getAnimalState, applyRemedy } from "../../utils/gameLogic";
 import type { AnimalType } from "../types/game";
+import RemedyButton from "../components/RemedyButton";
 import "../assets/images/backgrounds/background0.jpg"
 
 interface GameScreenProps {
@@ -50,6 +51,16 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 		>
 			<StatGauge value={energy} />
 			<AnimalAvatar animal={animal} state={getAnimalState(energy)} />
-			<RemedyButtons energy={energy} setEnergy={setEnergy} />
+			<View style={{ flexDirection: 'row' }}>
+				<RemedyButton
+					type="coffee"
+					onPress={() => setEnergy(applyRemedy(energy, 'coffee'))}
+				/>
+				<RemedyButton
+					type="herbal-tea"
+					onPress={() => setEnergy(applyRemedy(energy, 'herbaltea'))}
+				/>
+			</View>
 		</ImageBackground>
 	);
+}
