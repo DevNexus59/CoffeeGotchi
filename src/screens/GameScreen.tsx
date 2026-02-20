@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ImageBackground, View, StyleSheet } from "react-native";
+import { ImageBackground, View, StyleSheet} from "react-native";
 import StatGauge from "../components/StatGauge";
 import { useAudioPlayer } from "expo-audio";
 import AnimalAvatar from "../components/AnimalAvatar";
@@ -61,10 +61,13 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 
 			{/* Footer : Boutons d'actions */}
 			<View style={styles.footer}>
-				<RemedyButton type="coffee" onPress={() => handlePress("coffee")} />
+				<RemedyButton
+					type="coffee"
+					onPress={() => setEnergy(applyRemedy(energy, "coffee"))}
+				/>
 				<RemedyButton
 					type="herbal-tea"
-					onPress={() => handlePress("herbal-tea")}
+					onPress={() => setEnergy(applyRemedy(energy, "herbal-tea"))}
 				/>
 			</View>
 		</ImageBackground>
