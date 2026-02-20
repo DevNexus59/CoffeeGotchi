@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ImageBackground, View, StyleSheet} from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import StatGauge from "../components/StatGauge";
 import { useAudioPlayer } from "expo-audio";
 import AnimalAvatar from "../components/AnimalAvatar";
@@ -27,14 +27,21 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 					require("../assets/sounds/click_for_coffe.mp3"),
 				);
 	// 2. Le chronomètre (Le "Cœur" du jeu)
-	useEffect(() => {
-		const timer = setInterval(() => {
-			setEnergy((prev) => Math.min(prev - 1, 100)); // Gain d'énergie chaque seconde
-			setTimeLeft((prev) => Math.max(prev - 1, 0)); // Réduction du temps
-		}, 1000);
+				useEffect(() => {
+					const timer = setInterval(() => {
+						// --- Énergie Aléatoire ---
+						setEnergy((prev) => {
+							// Génère une perte entre 1 et 6 points d'énergie
+							const randomLoss = Math.floor(Math.random() * 6) + 1;
+							return Math.max(prev - randomLoss, 0);
+						});
 
-		return () => clearInterval(timer);
-	}, []);
+						// --- Temps Classique ---
+						setTimeLeft((prev) => Math.max(prev - 1, 0));
+					}, 1000);
+
+					return () => clearInterval(timer);
+				}, []);
 
 	useEffect(() => {
 		// Condition de défaite globale (Avant)
@@ -55,6 +62,7 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 		<View style={styles.container}>
 			{/* Header : Jauge d'énergie */}
 			<View style={styles.header}>
+				<Text>Temps restant : {timeLeft}s</Text>
 				<StatGauge value={energy} />
 			</View>
 
@@ -69,7 +77,7 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 					type="coffee"
 					onPress={() => {
 						setEnergy(applyRemedy(energy, "coffee"));
-                        clickSoundCoffee.seekTo(0); // Revenir au début du son pour pouvoir le rejouer rapidement
+						clickSoundCoffee.seekTo(0); // Revenir au début du son pour pouvoir le rejouer rapidement
 						clickSoundCoffee.play();
 					}}
 				/>
@@ -77,7 +85,7 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 					type="herbal-tea"
 					onPress={() => {
 						setEnergy(applyRemedy(energy, "herbal-tea"));
-                        clickSoundTea.seekTo(0); // Revenir au début du son pour pouvoir le rejouer rapidement
+						clickSoundTea.seekTo(0); // Revenir au début du son pour pouvoir le rejouer rapidement
 						clickSoundTea.play();
 					}}
 				/>
