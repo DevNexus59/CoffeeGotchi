@@ -72,6 +72,9 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 			</View>
 		</ImageBackground>
 	);
+<<<<<<< HEAD
+}
+=======
 }
 
 const styles = StyleSheet.create({
@@ -101,3 +104,4 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 	},
 });
+>>>>>>> dev
