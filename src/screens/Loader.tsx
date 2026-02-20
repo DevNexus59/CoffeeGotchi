@@ -95,18 +95,21 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        top: -130,
+        top: -110,
     },
     logo: {
-        width: 300,
-        height: 250,
+        width: 280,
+        height: 230,
         resizeMode: 'contain',
     },
     text: {
-        marginTop: 20,
+        position: 'absolute',
+        bottom: 2,
+        alignSelf: 'center',
         color: '#fff',
         fontSize: 18,
-        fontWeight: 600,
+        fontWeight: '600',
+        textAlign: 'center',
     }
 });
 
