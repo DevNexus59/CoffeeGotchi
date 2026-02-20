@@ -3,8 +3,8 @@ import { TouchableOpacity, Image, StyleSheet, Animated, Easing } from 'react-nat
 
 // définition des types pour le bouton
 interface RemedyButtonProps {
-    type: 'coffee' | 'herbal-tea';
-    onPress: () => void;
+	type: "coffee" | "herbal-tea";
+	onPress: () => void;
 }
 
 const RemedyButton = ({ type, onPress }: RemedyButtonProps) => {
