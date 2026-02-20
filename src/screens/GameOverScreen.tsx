@@ -3,9 +3,14 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from
 import { useAudioPlayer } from "expo-audio";
 import { useEffect } from "react";
 
+interface GameOverScreenProps {
+    state: React.Dispatch<React.SetStateAction<"win" | "coffee_over" | "tea_over" | "playing">>;
+    reason: "win" | "coffee_over" | "tea_over";
+}
 
 
-const GameOverScreen = ({ reason }: { reason: string}) => {
+
+const GameOverScreen = ({ state, reason }: GameOverScreenProps) => {
   
   const player = useAudioPlayer(
     require('../assets/sounds/game_over.mp3')
@@ -19,8 +24,8 @@ const GameOverScreen = ({ reason }: { reason: string}) => {
 
   const handleRetry = () => {
     clickRetry.play();
-      // Tu pourras ajouter ici la logique pour recommencer le jeu
-    
+    // Logique pour réinitialiser le jeu ou naviguer vers l'écran de sélection
+    state("playing");
   };   
    
   return (

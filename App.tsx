@@ -18,18 +18,24 @@ export default function App() {
 
 	// 2. La logique pour les écrans de jeu
 	const renderGameContent = () => {
-		if (gameState === "playing") {
-			return <GameScreen animal={selectedAnimal} onGameOver={setGameState} />;
-		}
-		if (gameState === "win") {
-			return <WinnerScreen animal="pinguin" />;
-		}
-		if (gameState === "coffee_over") {
-			return <GameOverScreen reason="coffee_over" />;
-		}
-		if (gameState === "tea_over") {
-			return <GameOverScreen reason="tea_over" />;
-		}
+    if (!selectedAnimal) {
+					return null;
+				}
+
+				if (gameState === "playing") {
+					return (
+						<GameScreen animal={selectedAnimal} onGameOver={setGameState} />
+					);
+				}
+				// if (gameState === "win") {
+				// 	return <WinnerScreen reason="win" />;
+				// }
+				if (gameState === "coffee_over") {
+					return <GameOverScreen state={setGameState} reason="coffee_over" />;
+				}
+				if (gameState === "tea_over") {
+					return <GameOverScreen state={setGameState} reason="tea_over" />;
+				}
 	};
 
 	return (
