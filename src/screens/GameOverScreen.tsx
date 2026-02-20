@@ -18,7 +18,7 @@ const GameOverScreen = ({ state, reason }: GameOverScreenProps) => {
 
   useEffect(() => {
     player.play();
-  }, []);
+  }, [player.play]);
     
   const clickRetry = useAudioPlayer(require('../assets/sounds/click_game_start.mp3'));
 

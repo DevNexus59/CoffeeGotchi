@@ -1,16 +1,17 @@
 import type { AnimalState,Remedy } from "../src/types/game";
 
-export function applyRemedy(
-	currentEnergy: number,
-	remedy: Remedy,
-): number {
-    if (remedy === "coffee") {
-        return currentEnergy + 3; 
-    }
-    if (remedy === "herbal-tea") {
-        return currentEnergy - 3;
-    }
-    return currentEnergy;
+export function applyRemedy(currentEnergy: number, remedy: Remedy): number {
+	if (remedy === "coffee") {
+
+		const randomBoost = Math.floor(Math.random() * 10) + 1;
+		return currentEnergy + randomBoost;
+	}
+
+	if (remedy === "herbal-tea") {
+		return currentEnergy - 3;
+	}
+
+	return currentEnergy;
 }
 
 export function getAnimalState(energy: number): AnimalState {
