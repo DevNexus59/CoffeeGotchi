@@ -25,7 +25,7 @@ const GameOverScreen = ({ reason }: { reason: string}) => {
    
   return (
     <ImageBackground
-      source={reason ==='tea' ? require('../assets/images/backgrounds/tea-over.jpg') : require('../assets/images/backgrounds/coffee-over.jpg')}
+      source={reason ==='tea-over' ? require('../assets/images/backgrounds/tea-over.jpg') : require('../assets/images/backgrounds/coffee-over.jpg')}
       style={styles.background}
       resizeMode='cover'
     >
@@ -41,7 +41,7 @@ const GameOverScreen = ({ reason }: { reason: string}) => {
         />
         <View style={styles.boxMessage}>
           <Text style={styles.message}>
-            Ton compagnon a succombé à une overdose de {reason ==="tea" ? "thé" : "café"}
+            Ton compagnon a succombé à une overdose de {reason ==="tea-over" ? "thé" : "café"}
           </Text>
         
 
