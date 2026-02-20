@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, View, StyleSheet } from "react-native";
 import StatGauge from "../components/StatGauge";
 import { useAudioPlayer } from "expo-audio";
 import AnimalAvatar from "../components/AnimalAvatar";
 import { getAnimalState, applyRemedy } from "../../utils/gameLogic";
 import type { AnimalType } from "../types/game";
 import RemedyButton from "../components/RemedyButton";
-import "../assets/images/backgrounds/background0.jpg"
+import "../assets/images/backgrounds/background0.jpg";
 
 interface GameScreenProps {
-    animal: AnimalType;
-    onGameOver: (reason: "win" | "coffee_over" | "tea_over") => void;
+	animal: AnimalType;
+	onGameOver: (reason: "win" | "coffee_over" | "tea_over") => void;
 }
 
 export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
@@ -22,7 +22,7 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 	// 2. Le chronomètre (Le "Cœur" du jeu)
 	useEffect(() => {
 		const timer = setInterval(() => {
-			setEnergy((prev) => Math.min(prev + 1, 100)); // Gain d'énergie chaque seconde
+			setEnergy((prev) => Math.min(prev - 1, 100)); // Gain d'énergie chaque seconde
 			setTimeLeft((prev) => Math.max(prev - 1, 0)); // Réduction du temps
 		}, 1000);
 
@@ -47,20 +47,54 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 	return (
 		<ImageBackground
 			source={require("../assets/images/backgrounds/background0.jpg")}
-			style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+			style={styles.container}
 		>
-			<StatGauge value={energy} />
-			<AnimalAvatar animal={animal} state={getAnimalState(energy)} />
-			<View style={{ flexDirection: 'row' }}>
-				<RemedyButton
-					type="coffee"
-					onPress={() => setEnergy(applyRemedy(energy, 'coffee'))}
-				/>
+			{/* Header : Jauge d'énergie */}
+			<View style={styles.header}>
+				<StatGauge value={energy} />
+			</View>
+
+			{/* Corps : Personnage centré */}
+			<View style={styles.characterContainer}>
+				<AnimalAvatar animal={animal} state={getAnimalState(energy)} />
+			</View>
+
+			{/* Footer : Boutons d'actions */}
+			<View style={styles.footer}>
+				<RemedyButton type="coffee" onPress={() => handlePress("coffee")} />
 				<RemedyButton
 					type="herbal-tea"
-					onPress={() => setEnergy(applyRemedy(energy, 'herbaltea'))}
+					onPress={() => handlePress("herbal-tea")}
 				/>
 			</View>
 		</ImageBackground>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: "center", // Centre verticalement le contenu principal
+		alignItems: "center", // Centre horizontalement
+	},
+	header: {
+		position: "absolute",
+		top: 60, // Ajusté pour ne pas coller à l'encoche (Notch)
+		alignItems: "center",
+		width: "100%",
+	},
+	characterContainer: {
+		// L'avatar se placera naturellement au milieu grâce au flex:1 du parent
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	footer: {
+		position: "absolute",
+		bottom: 40,
+		flexDirection: "row",
+		justifyContent: "center",
+		gap: 30, // Espace entre les boutons
+		width: "100%",
+		paddingHorizontal: 20,
+	},
+});

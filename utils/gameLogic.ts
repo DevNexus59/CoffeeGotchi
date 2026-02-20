@@ -5,10 +5,10 @@ export function applyRemedy(
 	remedy: Remedy,
 ): number {
     if (remedy === "coffee") {
-        return currentEnergy - 3; 
+        return currentEnergy + 3; 
     }
-    if (remedy === "herbaltea") {
-        return currentEnergy + 3;
+    if (remedy === "herbal-tea") {
+        return currentEnergy - 3;
     }
     return currentEnergy;
 }
@@ -21,12 +21,12 @@ export function getAnimalState(energy: number): AnimalState {
     }
 
     // 2. Zone de la tisane (trop relaxé)
-    if (energy > 75) {
+    if (energy > 80) {
         return "stone";
     }
 
     // 3. Zone du café (trop excité)
-    if (energy < 25) {
+    if (energy < 20) {
         return "coffee";
     }
 
