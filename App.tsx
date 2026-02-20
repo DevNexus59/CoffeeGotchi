@@ -17,7 +17,7 @@ export default function App() {
       ) : (
         // Remplacer ce bloc ensuite
         // par le SelectionScreen
-        <View style={styles.gameContent}>
+         <View style={styles.gameContent}>
       <Text>CoffeeGotchi</Text>
       </View>
       )}
@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   gameContent: {
     flex: 1,
     width: '100%',
