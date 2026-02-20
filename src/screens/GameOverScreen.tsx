@@ -25,7 +25,7 @@ const GameOverScreen = ({ reason }: { reason: string}) => {
    
   return (
     <ImageBackground
-      source={reason ==='tea-over' ? require('../assets/images/backgrounds/tea-over.jpg') : require('../assets/images/backgrounds/coffee-over.jpg')}
+      source={reason ==='tea_over' ? require('../assets/images/backgrounds/tea-over.jpg') : require('../assets/images/backgrounds/coffee-over.jpg')}
       style={styles.background}
       resizeMode='cover'
     >
@@ -41,12 +41,15 @@ const GameOverScreen = ({ reason }: { reason: string}) => {
         />
         <View style={styles.boxMessage}>
           <Text style={styles.message}>
-            Ton compagnon a succombé à une overdose de {reason ==="tea-over" ? "thé" : "café"}
+            Ton compagnon a succombé à une overdose de {reason ==="tea_over" ? "thé" : "café"}
           </Text>
         
 
           <TouchableOpacity style={styles.button} onPress={handleRetry}>
-            <Text style={styles.buttonText}>Réessayer</Text>
+            <Image source={require("../assets/replay_button.png")}
+                        style={styles.button}
+                        resizeMode="contain" 
+                      />
           </TouchableOpacity>
         </View>
       </View>
@@ -93,20 +96,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
-    paddingBottom: 40
+
   },
   button: {
-    backgroundColor: '#fff',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 25,
+  width: 230,
+    height: 150,
     
   },
-  buttonText: {
-    color: '#6f4e37',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+
 });
 
 export default GameOverScreen;

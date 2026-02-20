@@ -5,7 +5,9 @@ import GameOverScreen from "./src/screens/GameOverScreen";
 import GameScreen from "./src/screens/GameScreen";
 import Loader from "./src/screens/Loader";
 import SelectionScreen from "./src/screens/SelectionScreen";
+import WinnerScreen from "./src/screens/WinnerScreen";
 import type { AnimalType } from "./src/types/game";
+
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +22,7 @@ export default function App() {
 			return <GameScreen animal={selectedAnimal} onGameOver={setGameState} />;
 		}
 		if (gameState === "win") {
-			return <WinnerScreen reason="win" />;
+			return <WinnerScreen animal="pinguin" />;
 		}
 		if (gameState === "coffee_over") {
 			return <GameOverScreen reason="coffee_over" />;
@@ -31,6 +33,7 @@ export default function App() {
 	};
 
 	return (
+	
 		<ImageBackground
 			source={require("./src/assets/background.jpg")}
 			style={styles.container}

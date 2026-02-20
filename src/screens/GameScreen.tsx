@@ -53,3 +53,4 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 			<RemedyButtons energy={energy} setEnergy={setEnergy} />
 		</ImageBackground>
 	);
+}
