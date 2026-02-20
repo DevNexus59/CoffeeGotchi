@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated, Easing, Text, ImageBackground } from 'react-native';
+import { useAudioPlayer } from 'expo-audio';
 
 
 //interface pour dire que le Loader attend un fontion "onFinished" 
@@ -10,6 +11,15 @@ interface LoaderProps {
 }
 
 const Loader = ({ onFinished }: LoaderProps) => {
+
+    // Pour lancer l'audio sur l'écran de chargement
+    const playerOverture = useAudioPlayer(
+        require('../assets/sounds/loader.mp3')
+      );
+    
+      useEffect(() => {
+        playerOverture.play();
+      }, []);
 
     // consts pour les animations 
     const translateY = useRef(new Animated.Value(0)).current;
