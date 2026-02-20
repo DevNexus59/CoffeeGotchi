@@ -14,11 +14,18 @@ interface GameScreenProps {
 }
 
 export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
-	const player = useAudioPlayer(require("../assets/sounds/game_over.mp3"));
+	const player = useAudioPlayer(
+		require("../assets/sounds/bitstream-sprint.mp3"),
+	);
 	// 1. Nos états
 	const [energy, setEnergy] = useState<number>(50);
 	const [timeLeft, setTimeLeft] = useState<number>(60);
-
+    const clickSoundTea = useAudioPlayer(
+					require("../assets/sounds/click_for_tea.mp3"),
+				);
+    const clickSoundCoffee = useAudioPlayer(
+					require("../assets/sounds/click_for_coffe.mp3"),
+				);
 	// 2. Le chronomètre (Le "Cœur" du jeu)
 	useEffect(() => {
 		const timer = setInterval(() => {
@@ -45,10 +52,7 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 		player.play();
 	}, [player.play]);
 	return (
-		<ImageBackground
-			source={require("../assets/images/backgrounds/background0.jpg")}
-			style={styles.container}
-		>
+		<View style={styles.container}>
 			{/* Header : Jauge d'énergie */}
 			<View style={styles.header}>
 				<StatGauge value={energy} />
@@ -63,16 +67,23 @@ export default function GameScreen({ animal, onGameOver }: GameScreenProps) {
 			<View style={styles.footer}>
 				<RemedyButton
 					type="coffee"
-					onPress={() => setEnergy(applyRemedy(energy, "coffee"))}
+					onPress={() => {
+						setEnergy(applyRemedy(energy, "coffee"));
+                        clickSoundCoffee.seekTo(0); // Revenir au début du son pour pouvoir le rejouer rapidement
+						clickSoundCoffee.play();
+					}}
 				/>
 				<RemedyButton
 					type="herbal-tea"
-					onPress={() => setEnergy(applyRemedy(energy, "herbal-tea"))}
+					onPress={() => {
+						setEnergy(applyRemedy(energy, "herbal-tea"));
+                        clickSoundTea.seekTo(0); // Revenir au début du son pour pouvoir le rejouer rapidement
+						clickSoundTea.play();
+					}}
 				/>
 			</View>
-		</ImageBackground>
+		</View>
 	);
-
 }
 
 const styles = StyleSheet.create({

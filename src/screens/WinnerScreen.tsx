@@ -27,7 +27,7 @@ const WinnerScreen = ({ state, animal }: WinnerScreenProps) => {
   
   useEffect(() => {
     player.play();
-  }, []);
+  }, [player.play]);
 
   const clickRetry = useAudioPlayer(require('../assets/sounds/click_game_start.mp3'));
   const handleRetry = () => {
