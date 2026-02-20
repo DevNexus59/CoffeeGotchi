@@ -2,6 +2,7 @@ import React from "react"
 import { StyleSheet, ImageBackground, Image, View, TouchableOpacity, Text } from "react-native";
 import { useAudioPlayer } from "expo-audio";
 import { useEffect } from "react";
+// import ConfettiCannon from 'react-native-confetti-cannon'
 
 interface WinnerScreenProps {
     state: React.Dispatch<React.SetStateAction<"win" | "coffee_over" | "tea_over" | "playing">>;
@@ -32,7 +33,6 @@ const WinnerScreen = ({ state, animal }: WinnerScreenProps) => {
   const clickRetry = useAudioPlayer(require('../assets/sounds/click_game_start.mp3'));
   const handleRetry = () => {
     clickRetry.play();
-      // Tu pourras ajouter ici la logique pour recommencer le jeu
     state("playing");  
   };  
 
@@ -42,6 +42,7 @@ const WinnerScreen = ({ state, animal }: WinnerScreenProps) => {
       style={styles.background}
       resizeMode='cover'
     >
+      {/* <ConfettiCannon count={200} origin={{x: -10, y: 0}} /> */}
       <View style={styles.container }>
         <Image source={require("../assets/images/bravo.png")}
           style={styles.win} 
